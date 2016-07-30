@@ -1,8 +1,6 @@
 package mongo
 
 import (
-	tm "loyocloud-infrastructure/tmodels"
-
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -16,6 +14,13 @@ type querySet struct {
 	sort       []string
 	selector   map[string]bool
 	limit      int
+}
+
+type Pagination struct {
+	PageIndex    int64       `json:"pageIndex"`
+	PageSize     int64       `json:"pageSize"`
+	TotalRecords int64       `json:"totalRecords"`
+	Records      interface{} `json:"records"`
 }
 
 var _ QuerySeter = new(querySet)
@@ -246,7 +251,7 @@ func (o *querySet) Limit(n int) QuerySeter {
 	return o
 }
 
-func (o *querySet) Pagination(page *tm.Pagination) error {
+func (o *querySet) Pagination(page *Pagination) error {
 	defer o.session.Close()
 
 	initQuery(o)

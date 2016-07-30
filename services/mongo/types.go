@@ -1,8 +1,6 @@
 package mongo
 
 import (
-	tm "loyocloud-infrastructure/tmodels"
-
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -67,7 +65,7 @@ type QuerySeter interface {
 	SetCond(*Condition) QuerySeter
 	Raw(Map) QuerySeter
 	Limit(int) QuerySeter
-	Pagination(*tm.Pagination) error
+	Pagination(*Pagination) error
 	Sort(map[string]int, []string) QuerySeter
 	Count() (int, error)
 	Exist() bool
